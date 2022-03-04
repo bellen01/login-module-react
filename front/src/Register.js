@@ -10,10 +10,10 @@ const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
 const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 
 function Register() {
-  const [firstnameReg, setFirstnameReg] = useState("");
-  const [surnameReg, setSurnameReg] = useState("");
-  const [emailReg, setEmailReg] = useState("");
-  const [passwordReg, setPasswordReg] = useState("");
+  const [firstnameReg, setFirstnameReg] = useState("lnfr");
+  const [surnameReg, setSurnameReg] = useState("lnkrg");
+  const [emailReg, setEmailReg] = useState("lnr@kjr.com");
+  const [passwordReg, setPasswordReg] = useState("Katt2020");
 
   const [emptyFirstnameError, setEmptyFirstnameError] = useState("");
   const [emptySurnameError, setEmptySurnameError] = useState("");
@@ -50,10 +50,16 @@ function Register() {
 
 
 
-  function sendInputToBackend() {
-    fetch('localhost:3000/reg', {
+  async function sendInputToBackend(inputData) {
+    const response = await fetch('http://localhost:3001/reg', {
       method: 'POST',
+      body: JSON.stringify(inputData),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
+    const data = await response.json();
+    console.log(data);
   }
 
   function clickHandler(event) {
@@ -66,7 +72,12 @@ function Register() {
         email: emailReg,
         password: passwordReg
       }
+      sendInputToBackend(inputData);
       console.log(inputData);
+      // setFirstnameReg("");
+      // setSurnameReg("");
+      // setEmailReg("");
+      // setPasswordReg("");
     }
   }
 
