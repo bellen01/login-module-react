@@ -20,7 +20,7 @@ function Register() {
   const [emptyEmailError, setEmptyEmailError] = useState("");
   const [emptyPasswordError, setEmptyPasswordError] = useState("");
 
-  const [token, setToken] = useState(null);
+  //const [token, setToken] = useState(null);
 
   function validate() {
     let valid = true;
@@ -60,7 +60,13 @@ function Register() {
     event.preventDefault();
     let validInput = validate();
     if (validInput === true) {
-
+      const inputData = {
+        firstName: firstnameReg,
+        surName: surnameReg,
+        email: emailReg,
+        password: passwordReg
+      }
+      console.log(inputData);
     }
   }
 
