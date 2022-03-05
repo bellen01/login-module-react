@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require('body-parser')
 var app = express();
 const fs = require('fs');
+const crypto = require('crypto');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -29,19 +30,27 @@ app.get("/url", (req, res, next) => {
 
 let userData = [];
 
+try {
+    let userFileData = fs.readFileSync("/tmp/users.json");
+    userData = JSON.parse(userFileData);
+} catch (error) {
+    console.log("filen finns inte"); //TODO hantera felet, kolla i felet om filen inte finns eller om det är något annat fel
+}
+
 app.post("/reg", (req, res, next) => {
-    let userAlreadyExists = userData.find(user => user.email === req.body.email);
-    if (userAlreadyExists) {
+    let doesUserAlreadyExists = userData.find(user => user.email.toLowerCase() === req.body.email.toLowerCase());
+    if (doesUserAlreadyExists) {
         return res.status(406).json({})
     } else {
+        let encryptedPwd = crypto.createHash('md5').update('req.body.password').digest("hex");
         let user = {
             firstName: req.body.firstName,
             surName: req.body.surName,
             email: req.body.email,
-            password: req.body.password
+            password: encryptedPwd
         };
         userData.push(user);
-        fs.writeFile("/tmp/users.json", JSON.stringify(userData, null, 2), function (error) {
+        fs.writeFile("/tmp/users.json", JSON.stringify(userData, null, 2), function (error) { //TODO lägg i try and catch
             if (error) {
                 return console.log(error);
             }
