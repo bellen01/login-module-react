@@ -5,6 +5,7 @@ let errorMessageEmptyFirstName = "Du måste fylla i förnamn"
 let errorMessageEmptySurName = "Du måste fylla i efternamn";
 let errorMessageEmptyEmail = "Du måste fylla i email och den måste innehålla @ och .";
 let errorMessageEmptyPassword = "Lösenordet måste fyllas i och måste innehålla minst en stor bokstav, en siffra samt vara minst 8 tecken långt";
+let errorMessageRepeatPassword = "Lösenorden stämmer inte överens";
 
 const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
 const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
@@ -14,11 +15,13 @@ function Register() {
   const [surnameReg, setSurnameReg] = useState("lnkrg");
   const [emailReg, setEmailReg] = useState("lnr@kjr.com");
   const [passwordReg, setPasswordReg] = useState("Katt2020");
+  const [repeatPasswordReg, setRepeatPasswordReg] = useState("Katt2020");
 
   const [emptyFirstnameError, setEmptyFirstnameError] = useState("");
   const [emptySurnameError, setEmptySurnameError] = useState("");
   const [emptyEmailError, setEmptyEmailError] = useState("");
   const [emptyPasswordError, setEmptyPasswordError] = useState("");
+  const [emptyRepeatPasswordError, setEmptyRepeatPasswordError] = useState("");
 
   //const [token, setToken] = useState(null);
 
@@ -28,6 +31,7 @@ function Register() {
     setEmptySurnameError("");
     setEmptyEmailError("");
     setEmptyPasswordError("");
+    setEmptyRepeatPasswordError("");
     if (firstnameReg == "") {
       setEmptyFirstnameError(errorMessageEmptyFirstName);
       valid = false;
@@ -44,6 +48,10 @@ function Register() {
       setEmptyPasswordError(errorMessageEmptyPassword);
       valid = false;
     }
+    if (passwordReg != repeatPasswordReg) {
+      setEmptyRepeatPasswordError(errorMessageRepeatPassword);
+      valid = false;
+    }
     console.log(valid);
     return valid;
   }
@@ -58,8 +66,8 @@ function Register() {
         'Content-Type': 'application/json'
       }
     });
-    const data = await response.json();
-    console.log(data);
+    // const data = await response.json();
+    console.log(response);
   }
 
   function clickHandler(event) {
@@ -123,6 +131,14 @@ function Register() {
           onChange={(e) => setPasswordReg(e.target.value)}
         />
         <div className="errorMessagePassword">{emptyPasswordError}</div>
+        <br />
+        <InputWithLabels
+          label="Repetera lösenord: "
+          name="repeatPassword"
+          value={repeatPasswordReg}
+          onChange={(e) => setRepeatPasswordReg(e.target.value)}
+        />
+        <div className="errorMessagePassword">{emptyRepeatPasswordError}</div>
         <br />
         <button
           type="button"
