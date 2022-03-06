@@ -89,10 +89,10 @@ function Register() {
     }
   }
 
-  // funktion med tre parametrar, en för firstnameReg en för funktionen för setPasswordRegError och en för errorMessageEmptyFirstName
+  //TODO funktion med tre parametrar, en för firstnameReg en för funktionen för setPasswordRegError och en för errorMessageEmptyFirstName
 
   function inputValueHandler(event, inputField) {
-    inputField(event.target.value);
+    inputField(event.target.value.trim()); //TODO kan inte skriva mellanslag alls. Bra/dåligt? Lägg till på de övriga fälten
   }
 
   return (

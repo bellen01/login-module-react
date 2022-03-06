@@ -37,6 +37,16 @@ try {
     console.log("filen finns inte"); //TODO hantera felet, kolla i felet om filen inte finns eller om det är något annat fel
 }
 
+app.post("/login", (req, res, next) => {
+    let doesUserExist = userData.find(user => user.email.toLowerCase() === req.body.email.toLowerCase());
+    if (doesUserExist) {
+        return res.status(200).json({})
+    } else {
+        return res.status(401).json({})
+    }
+})
+
+
 app.post("/reg", (req, res, next) => {
     let doesUserAlreadyExists = userData.find(user => user.email.toLowerCase() === req.body.email.toLowerCase());
     if (doesUserAlreadyExists) {

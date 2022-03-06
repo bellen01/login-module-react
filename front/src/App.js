@@ -4,7 +4,7 @@ import './App.css';
 import Register from "./Register";
 import Login from "./Login";
 
-let login = false;
+let login = true;
 
 function App() {
   if (login === true) {
