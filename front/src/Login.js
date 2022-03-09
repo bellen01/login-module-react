@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 let errorMessageEmptyEmail = "Du måste fylla i email";
 let errorMessageEmptyPassword = "Du måste fylla i lösenord";
@@ -9,6 +10,7 @@ function Login() {
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [loginSuccessOrFailureMessage, setLoginSuccessOrFailureMessage] = useState("");
 
 
   function validate() {
@@ -29,15 +31,30 @@ function Login() {
 
 
   async function checkIfUserExist(inputData) {
-    const response = await fetch('http://localhost:3001/login', {
-      method: 'POST',
-      body: JSON.stringify(inputData),
-      headers: {
-        'Content-Type': 'application/json'
+    try {
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        body: JSON.stringify(inputData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error("Email eller lösenord är fel, vänligen försök igen");
+        } else {
+          throw new Error("Något gick fel, försök igen senare");
+        }
       }
-    });
-    // const data = await response.json();
-    console.log(response);
+      setLoginSuccessOrFailureMessage("Login lyckades!")
+      // const data = await response.json();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setLoginSuccessOrFailureMessage(error.message);
+
+    }
   }
 
   function loginSubmitHandler(event) {
@@ -56,32 +73,35 @@ function Login() {
   }
 
   return (
-    <div className="App">
-      <div className="login">
-        <h1>Logga in här:</h1>
-        <input
-          type="email"
-          placeholder="Email"
-          value={loginEmail}
-          onChange={(e) => setLoginEmail(e.target.value)}
-        />
-        <div>{emailError}</div>
-        <br />
-        <input
-          type="password"
-          placeholder="Lösenord"
-          value={loginPassword}
-          onChange={(e) => setLoginPassword(e.target.value)}
-        />
-        <div>{passwordError}</div>
-        <br />
-        <button
-          type="button"
-          className="btn"
-          onClick={loginSubmitHandler}
-        >Logga in</button>
+    <form onSubmit={loginSubmitHandler}>
+      <div className="App">
+        <div className="login">
+          <h1>Logga in här:</h1>
+          <input
+            type="email"
+            placeholder="Email"
+            value={loginEmail}
+            onChange={(e) => setLoginEmail(e.target.value)}
+          />
+          <div>{emailError}</div>
+          <br />
+          <input
+            type="password"
+            placeholder="Lösenord"
+            value={loginPassword}
+            onChange={(e) => setLoginPassword(e.target.value)}
+          />
+          <div>{passwordError}</div>
+          <br />
+          <button
+            type="submit"
+            className="btn"
+          >Logga in</button>
+          <p>Inte registrerad ännu? <Link to='/reg'>Klicka här!</Link></p>
+          <div>{loginSuccessOrFailureMessage}</div>
+        </div>
       </div>
-    </div>
+    </form>
   );
 }
 

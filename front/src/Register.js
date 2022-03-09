@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import InputWithLabels from "./InputWithLabels";
+import { Link } from 'react-router-dom';
+import './Register.css';
 
 let errorMessageEmptyFirstName = "Du måste fylla i förnamn"
 let errorMessageEmptySurName = "Du måste fylla i efternamn";
@@ -22,6 +24,7 @@ function Register() {
   const [emptyEmailError, setEmptyEmailError] = useState("");
   const [emptyPasswordError, setEmptyPasswordError] = useState("");
   const [emptyRepeatPasswordError, setEmptyRepeatPasswordError] = useState("");
+  const [successOrFailureMessage, setSuccessOrFailureMessage] = useState("");
 
   //const [token, setToken] = useState(null);
 
@@ -59,15 +62,30 @@ function Register() {
 
 
   async function sendInputToBackend(inputData) {
-    const response = await fetch('http://localhost:3001/reg', {
-      method: 'POST',
-      body: JSON.stringify(inputData),
-      headers: {
-        'Content-Type': 'application/json'
+    try {
+      const response = await fetch('http://localhost:3001/reg', {
+        method: 'POST',
+        body: JSON.stringify(inputData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      // const data = await response.json();
+      console.log(response);
+
+      if (!response.ok) {
+        if (response.status === 406) {
+          throw new Error("Den email du skrivit in är redan registrerad, välj en annan");
+        } else {
+          throw new Error("Något gick fel, försök igen senare")
+        }
       }
-    });
-    // const data = await response.json();
-    console.log(response);
+      setSuccessOrFailureMessage("Du är nu registrerad, yay!")
+
+    } catch (error) {
+      console.log(error);
+      setSuccessOrFailureMessage(error.message);
+    }
   }
 
   function clickHandler(event) {
@@ -96,7 +114,7 @@ function Register() {
   }
 
   return (
-    <div className="App">
+    <form onSubmit={clickHandler}>
       <div className="registration">
         <h1>Registrera dig här:</h1>
         <InputWithLabels
@@ -141,12 +159,13 @@ function Register() {
         <div className="errorMessagePassword">{emptyRepeatPasswordError}</div>
         <br />
         <button
-          type="button"
+          type="submit"
           className="btn"
-          onClick={clickHandler}
-        >Registrera</button> {/* lägg till onclick med funktion till validering */}
+        >Registrera</button>
+        <p>Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
+        <div>{successOrFailureMessage}</div>
       </div>
-    </div>
+    </form>
   );
 }
 

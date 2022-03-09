@@ -28,7 +28,11 @@ try {
     let userFileData = fs.readFileSync("/tmp/users.json");
     userData = JSON.parse(userFileData);
 } catch (error) {
-    console.log("filen finns inte"); //TODO hantera felet, kolla i felet om filen inte finns eller om det är något annat fel
+    console.log(error);
+    if (error.code === 'ENOENT') {
+        console.log("Filen finns inte, den kommer skapas upp.");
+    }
+    //TODO hantera felet, kolla i felet om filen inte finns eller om det är något annat fel
 }
 
 function doesUserExist(loginData) {
@@ -63,12 +67,15 @@ app.post("/reg", (req, res, next) => {
             password: encryptedPwd
         };
         userData.push(user);
-        fs.writeFile("/tmp/users.json", JSON.stringify(userData, null, 2), function (error) { //TODO lägg i try and catch
-            if (error) {
-                return console.log(error);
-            }
-            console.log("The file was saved, yay!")
-        });
+
+        try {
+            fs.writeFile("/tmp/users.json", JSON.stringify(userData, null, 2), function (error) {
+                console.log("The file was saved, yay!")
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({});
+        }
         res.json();
         console.log(req.body);
         console.log(req);

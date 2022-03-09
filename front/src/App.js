@@ -3,19 +3,33 @@ import './App.css';
 // import InputWithLabels from "./InputWithLabels";
 import Register from "./Register";
 import Login from "./Login";
+import { Route, Redirect } from 'react-router-dom';
 
-let login = true;
+// let login = true;
 
 function App() {
-  if (login === true) {
-    return (
-      <Login />
-    );
-  } else {
-    return (
-      <Register />
-    );
-  }
+  return (
+    <div>
+      <Route path='/' exact>
+        <Redirect to='/login' />
+      </Route>
+      <Route path="/login">
+        <Login />
+      </Route>
+      <Route path="/reg">
+        <Register />
+      </Route>
+    </div>
+  )
+  // if (login === true) {
+  //   return (
+  //     <Login />
+  //   );
+  // } else {
+  //   return (
+  //     <Register />
+  //   );
+  // }
 }
 
 // function App() {
