@@ -117,67 +117,69 @@ function Register() {
 
   return (
     <Container>
-      <Form onSubmit={clickHandler}>
-        <Form.Group className="mb-3">
-          <h1>Registrera dig här:</h1>
-          <InputWithLabels
-            label="E-mail: "
-            name="email"
-            value={emailReg}
-            type="email"
-            onChange={(e) => setEmailReg(e.target.value)}
-          />
-          <div className="errorMessageEmail">{emptyEmailError}</div>
-          <Row>
-            <Col>
-              <InputWithLabels
-                label="Förnamn: "
-                name="firstName"
-                value={firstnameReg}
-                onChange={e => inputValueHandler(e, setFirstnameReg)}
-              />
-              <div>{emptyFirstnameError}</div>
-            </Col>
-            <Col>
-              <InputWithLabels
-                label="Efternamn: "
-                name="surName"
-                value={surnameReg}
-                onChange={(e) => setSurnameReg(e.target.value)}
-              />
-              <div className="errorMessageSurName">{emptySurnameError}</div>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <InputWithLabels
-                label="Lösenord: "
-                name="password"
-                value={passwordReg}
-                onChange={(e) => setPasswordReg(e.target.value)}
-              />
-              <div className="errorMessagePassword">{emptyPasswordError}</div>
-            </Col>
-            <Col>
-              <InputWithLabels
-                label="Repetera lösenord: "
-                name="repeatPassword"
-                value={repeatPasswordReg}
-                onChange={(e) => setRepeatPasswordReg(e.target.value)}
-              />
-              <div className="errorMessagePassword">{emptyRepeatPasswordError}</div>
-            </Col>
-          </Row>
-          <br />
-          <Button
-            type="submit"
-            className="btn"
-          >Registrera</Button>
-          <br />
-          <p>Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
-          <div>{successOrFailureMessage}</div>
-        </Form.Group>
-      </Form>
+      <Card>
+        <Form onSubmit={clickHandler}>
+          <Form.Group className="mb-3">
+            <h1>Registrera dig här:</h1>
+            <InputWithLabels
+              label="E-mail: "
+              name="email"
+              value={emailReg}
+              type="email"
+              onChange={(e) => setEmailReg(e.target.value)}
+            />
+            <div className="errorMessageEmail">{emptyEmailError}</div>
+            <Row>
+              <Col>
+                <InputWithLabels
+                  label="Förnamn: "
+                  name="firstName"
+                  value={firstnameReg}
+                  onChange={e => inputValueHandler(e, setFirstnameReg)}
+                />
+                <div>{emptyFirstnameError}</div>
+              </Col>
+              <Col>
+                <InputWithLabels
+                  label="Efternamn: "
+                  name="surName"
+                  value={surnameReg}
+                  onChange={(e) => setSurnameReg(e.target.value)}
+                />
+                <div className="errorMessageSurName">{emptySurnameError}</div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <InputWithLabels
+                  label="Lösenord: "
+                  name="password"
+                  value={passwordReg}
+                  onChange={(e) => setPasswordReg(e.target.value)}
+                />
+                <div className="errorMessagePassword">{emptyPasswordError}</div>
+              </Col>
+              <Col>
+                <InputWithLabels
+                  label="Repetera lösenord: "
+                  name="repeatPassword"
+                  value={repeatPasswordReg}
+                  onChange={(e) => setRepeatPasswordReg(e.target.value)}
+                />
+                <div className="errorMessagePassword">{emptyRepeatPasswordError}</div>
+              </Col>
+            </Row>
+            <br />
+            <Button
+              type="submit"
+              className="btn"
+            >Registrera</Button>
+            <br />
+            <p>Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
+            <div>{successOrFailureMessage}</div>
+          </Form.Group>
+        </Form>
+      </Card>
     </Container>
   );
 }

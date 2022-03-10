@@ -1,8 +1,52 @@
-var express = require("express");
+//Kod för att implementera mongo
+const express = require('express');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+var bodyParser = require('body-parser')
+const cors = require('cors');
+
+app.use(cors());
+app.use(bodyParser.json());
+
+const userSchema = mongoose.Schema({
+    firstName: {
+        type: String,
+        required: true
+    },
+    surName: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+});
+
+const User = mongoose.model('User', userSchema);
+
+
+const app = express();
+
+//connect to mongoDB
+const dbURI = 'mongodb+srv://bellen01:Cqn6KbLUy5FBrWh@cluster0.wtkif.mongodb.net/user?retryWrites=true&w=majority';
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true }).then((result) => app.listen(3001)).catch((err) => console.log(err));
+
+app.use(morgan('dev'));
+
+
+//Gammal kod för att läsa till fil på datorn
+//var express = require("express");
 var bodyParser = require('body-parser')
 var app = express();
 const fs = require('fs');
 const crypto = require('crypto');
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
