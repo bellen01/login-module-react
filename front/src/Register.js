@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import InputWithLabels from "./InputWithLabels";
 import { Link } from 'react-router-dom';
 import './Register.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Form, Container, Row, Col, Button, Card } from 'react-bootstrap'
 
 let errorMessageEmptyFirstName = "Du måste fylla i förnamn"
 let errorMessageEmptySurName = "Du måste fylla i efternamn";
@@ -114,58 +116,69 @@ function Register() {
   }
 
   return (
-    <form onSubmit={clickHandler}>
-      <div className="registration">
-        <h1>Registrera dig här:</h1>
-        <InputWithLabels
-          label="Förnamn: "
-          name="firstName"
-          value={firstnameReg}
-          onChange={e => inputValueHandler(e, setFirstnameReg)}
-        />
-        <div>{emptyFirstnameError}</div>
-        <br />
-        <InputWithLabels
-          label="Efternamn: "
-          name="surName"
-          value={surnameReg}
-          onChange={(e) => setSurnameReg(e.target.value)}
-        />
-        <div className="errorMessageSurName">{emptySurnameError}</div>
-        <br />
-        <InputWithLabels
-          label="e-mail: "
-          name="email"
-          value={emailReg}
-          type="email"
-          onChange={(e) => setEmailReg(e.target.value)}
-        />
-        <div className="errorMessageEmail">{emptyEmailError}</div>
-        <br />
-        <InputWithLabels
-          label="Lösenord: "
-          name="password"
-          value={passwordReg}
-          onChange={(e) => setPasswordReg(e.target.value)}
-        />
-        <div className="errorMessagePassword">{emptyPasswordError}</div>
-        <br />
-        <InputWithLabels
-          label="Repetera lösenord: "
-          name="repeatPassword"
-          value={repeatPasswordReg}
-          onChange={(e) => setRepeatPasswordReg(e.target.value)}
-        />
-        <div className="errorMessagePassword">{emptyRepeatPasswordError}</div>
-        <br />
-        <button
-          type="submit"
-          className="btn"
-        >Registrera</button>
-        <p>Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
-        <div>{successOrFailureMessage}</div>
-      </div>
-    </form>
+    <Container>
+      <Form onSubmit={clickHandler}>
+        <Form.Group className="mb-3">
+          <h1>Registrera dig här:</h1>
+          <InputWithLabels
+            label="E-mail: "
+            name="email"
+            value={emailReg}
+            type="email"
+            onChange={(e) => setEmailReg(e.target.value)}
+          />
+          <div className="errorMessageEmail">{emptyEmailError}</div>
+          <Row>
+            <Col>
+              <InputWithLabels
+                label="Förnamn: "
+                name="firstName"
+                value={firstnameReg}
+                onChange={e => inputValueHandler(e, setFirstnameReg)}
+              />
+              <div>{emptyFirstnameError}</div>
+            </Col>
+            <Col>
+              <InputWithLabels
+                label="Efternamn: "
+                name="surName"
+                value={surnameReg}
+                onChange={(e) => setSurnameReg(e.target.value)}
+              />
+              <div className="errorMessageSurName">{emptySurnameError}</div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <InputWithLabels
+                label="Lösenord: "
+                name="password"
+                value={passwordReg}
+                onChange={(e) => setPasswordReg(e.target.value)}
+              />
+              <div className="errorMessagePassword">{emptyPasswordError}</div>
+            </Col>
+            <Col>
+              <InputWithLabels
+                label="Repetera lösenord: "
+                name="repeatPassword"
+                value={repeatPasswordReg}
+                onChange={(e) => setRepeatPasswordReg(e.target.value)}
+              />
+              <div className="errorMessagePassword">{emptyRepeatPasswordError}</div>
+            </Col>
+          </Row>
+          <br />
+          <Button
+            type="submit"
+            className="btn"
+          >Registrera</Button>
+          <br />
+          <p>Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
+          <div>{successOrFailureMessage}</div>
+        </Form.Group>
+      </Form>
+    </Container>
   );
 }
 

@@ -1,4 +1,6 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Form from 'react-bootstrap/Form'
 
 function InputWithLabels(props) {
   let type = "text";
@@ -8,8 +10,8 @@ function InputWithLabels(props) {
 
   return (
     <div>
-      <label htmlFor="{props.name}">{props.label}</label>
-      <input
+      <Form.Label htmlFor="{props.name}">{props.label}</Form.Label>
+      <Form.Control
         value={props.value}
         type={type}
         name="{props.name}"
