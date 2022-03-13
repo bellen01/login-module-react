@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import InputWithLabels from "./InputWithLabels";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Register.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Container, Row, Col, Button, Card } from 'react-bootstrap'
@@ -15,8 +15,8 @@ const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
 const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 
 function Register() {
-  const [firstnameReg, setFirstnameReg] = useState("lnfr");
-  const [surnameReg, setSurnameReg] = useState("lnkrg");
+  const [firstNameReg, setFirstnameReg] = useState("lnfr");
+  const [surNameReg, setSurnameReg] = useState("lnkrg");
   const [emailReg, setEmailReg] = useState("lnr@kjr.com");
   const [passwordReg, setPasswordReg] = useState("Katt2020");
   const [repeatPasswordReg, setRepeatPasswordReg] = useState("Katt2020");
@@ -28,24 +28,25 @@ function Register() {
   const [emptyRepeatPasswordError, setEmptyRepeatPasswordError] = useState("");
   const [successOrFailureMessage, setSuccessOrFailureMessage] = useState("");
 
+  const redirectToLogin = useHistory();
   //const [token, setToken] = useState(null);
 
-  function validate() {
+  function validate(firstName, surName, email) {
     let valid = true;
     setEmptyFirstnameError("");
     setEmptySurnameError("");
     setEmptyEmailError("");
     setEmptyPasswordError("");
     setEmptyRepeatPasswordError("");
-    if (firstnameReg == "") {
+    if (firstName == "") {
       setEmptyFirstnameError(errorMessageEmptyFirstName);
       valid = false;
     }
-    if (surnameReg == "") {
+    if (surName == "") {
       setEmptySurnameError(errorMessageEmptySurName);
       valid = false;
     }
-    if (!validEmail.test(emailReg)) {
+    if (!validEmail.test(email)) {
       setEmptyEmailError(errorMessageEmptyEmail);
       valid = false;
     }
@@ -82,7 +83,13 @@ function Register() {
           throw new Error("Något gick fel, försök igen senare")
         }
       }
-      setSuccessOrFailureMessage("Du är nu registrerad, yay!")
+      redirectToLogin.push(
+        {
+          pathname: '/login',
+          state: { success: true }
+        });
+
+      // setSuccessOrFailureMessage("Du är nu registrerad, yay!")
 
     } catch (error) {
       console.log(error);
@@ -91,13 +98,16 @@ function Register() {
   }
 
   function clickHandler(event) {
+    const firstName = firstNameReg.trim();
+    const surName = surNameReg.trim();
+    const email = emailReg.trim();
     event.preventDefault();
-    let validInput = validate();
+    let validInput = validate(firstName, surName, email);
     if (validInput === true) {
       const inputData = {
-        firstName: firstnameReg,
-        surName: surnameReg,
-        email: emailReg,
+        firstName,
+        surName: surName,
+        email: email,
         password: passwordReg
       }
       sendInputToBackend(inputData);
@@ -112,7 +122,7 @@ function Register() {
   //TODO funktion med tre parametrar, en för firstnameReg en för funktionen för setPasswordRegError och en för errorMessageEmptyFirstName
 
   function inputValueHandler(event, inputField) {
-    inputField(event.target.value.trim()); //TODO kan inte skriva mellanslag alls. Bra/dåligt? Lägg till på de övriga fälten
+    inputField(event.target.value); //TODO kan inte skriva mellanslag alls. Bra/dåligt? Lägg till på de övriga fälten
   }
 
   return (
@@ -134,7 +144,7 @@ function Register() {
                 <InputWithLabels
                   label="Förnamn: "
                   name="firstName"
-                  value={firstnameReg}
+                  value={firstNameReg}
                   onChange={e => inputValueHandler(e, setFirstnameReg)}
                 />
                 <div>{emptyFirstnameError}</div>
@@ -143,7 +153,7 @@ function Register() {
                 <InputWithLabels
                   label="Efternamn: "
                   name="surName"
-                  value={surnameReg}
+                  value={surNameReg}
                   onChange={(e) => setSurnameReg(e.target.value)}
                 />
                 <div className="errorMessageSurName">{emptySurnameError}</div>

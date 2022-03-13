@@ -1,10 +1,20 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from 'react-router-dom';
 
 let errorMessageEmptyEmail = "Du måste fylla i email";
 let errorMessageEmptyPassword = "Du måste fylla i lösenord";
 
-function Login() {
+function Login(props) {
+
+  const [regSuccessMessage, setRegSuccessMessage] = useState('');
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state && location.state.success) {
+      setRegSuccessMessage('Du är registrerad, logga in nedan')
+    }
+  }, [location]);
+
+
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
 
@@ -75,6 +85,7 @@ function Login() {
   return (
     <form onSubmit={loginSubmitHandler}>
       <div className="App">
+        <div>{regSuccessMessage}</div>
         <div className="login">
           <h1>Logga in här:</h1>
           <input
