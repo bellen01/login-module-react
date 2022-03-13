@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import InputWithLabels from "./InputWithLabels";
 import { Link, useHistory } from 'react-router-dom';
-import './Register.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Container, Row, Col, Button, Card } from 'react-bootstrap'
+import './Register.css';
 
 let errorMessageEmptyFirstName = "Du måste fylla i förnamn"
 let errorMessageEmptySurName = "Du måste fylla i efternamn";
@@ -126,12 +126,13 @@ function Register() {
   }
 
   return (
-    <Container>
-      <Card>
+    <Container className="container">
+      <Card className="form">
         <Form onSubmit={clickHandler}>
           <Form.Group className="mb-3">
             <h1>Registrera dig här:</h1>
             <InputWithLabels
+              placeholder="E-mail"
               label="E-mail: "
               name="email"
               value={emailReg}
@@ -142,6 +143,7 @@ function Register() {
             <Row>
               <Col>
                 <InputWithLabels
+                  placeholder="Förnamn"
                   label="Förnamn: "
                   name="firstName"
                   value={firstNameReg}
@@ -151,6 +153,7 @@ function Register() {
               </Col>
               <Col>
                 <InputWithLabels
+                  placeholder="Efternamn"
                   label="Efternamn: "
                   name="surName"
                   value={surNameReg}
@@ -162,6 +165,7 @@ function Register() {
             <Row>
               <Col>
                 <InputWithLabels
+                  placeholder="Lösenord"
                   label="Lösenord: "
                   name="password"
                   value={passwordReg}
@@ -171,6 +175,7 @@ function Register() {
               </Col>
               <Col>
                 <InputWithLabels
+                  placeholder="Upprepa lösenord"
                   label="Repetera lösenord: "
                   name="repeatPassword"
                   value={repeatPasswordReg}
@@ -179,13 +184,11 @@ function Register() {
                 <div className="errorMessagePassword">{emptyRepeatPasswordError}</div>
               </Col>
             </Row>
-            <br />
-            <Button
+            <button
               type="submit"
               className="btn"
-            >Registrera</Button>
-            <br />
-            <p>Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
+            >Registrera</button>
+            <p className="already-registered">Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
             <div>{successOrFailureMessage}</div>
           </Form.Group>
         </Form>

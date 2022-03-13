@@ -1,0 +1,13 @@
+.form-input {
+  background-color: rgba(255,255,255,0.4);
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+  /* border-bottom: 1px solid black; */
+}
+
+.form-input:focus {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.7);
+}
