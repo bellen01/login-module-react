@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Form, Container, Row, Col, Card } from 'react-bootstrap';
+
 
 let errorMessageEmptyEmail = "Du måste fylla i email";
 let errorMessageEmptyPassword = "Du måste fylla i lösenord";
@@ -83,36 +86,42 @@ function Login(props) {
   }
 
   return (
-    <form onSubmit={loginSubmitHandler}>
-      <div className="App">
-        <div>{regSuccessMessage}</div>
-        <div className="login">
-          <h1>Logga in här:</h1>
-          <input
-            type="email"
-            placeholder="Email"
-            value={loginEmail}
-            onChange={(e) => setLoginEmail(e.target.value)}
-          />
-          <div>{emailError}</div>
-          <br />
-          <input
-            type="password"
-            placeholder="Lösenord"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-          />
-          <div>{passwordError}</div>
-          <br />
-          <button
-            type="submit"
-            className="btn"
-          >Logga in</button>
-          <p>Inte registrerad ännu? <Link to='/reg'>Klicka här!</Link></p>
-          <div>{loginSuccessOrFailureMessage}</div>
-        </div>
-      </div>
-    </form>
+    <Container className="container">
+      <Card className="form">
+        <Form onSubmit={loginSubmitHandler}>
+          <Form.Group className="mb-3">
+            <div>{regSuccessMessage}</div>
+            <h1>Logga in här:</h1>
+            <Row>
+              <Col>
+                <Form.Control className="form-input"
+                  type="email"
+                  placeholder="Email"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                />
+                <div>{emailError}</div>
+              </Col>
+              <Col>
+                <Form.Control className="form-input"
+                  type="password"
+                  placeholder="Lösenord"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                />
+                <div>{passwordError}</div>
+              </Col>
+            </Row>
+            <button
+              type="submit"
+              className="btn"
+            >Logga in</button>
+            <p>Inte registrerad ännu? <Link to='/reg'>Klicka här!</Link></p>
+            <div>{loginSuccessOrFailureMessage}</div>
+          </Form.Group>
+        </Form>
+      </Card>
+    </Container>
   );
 }
 

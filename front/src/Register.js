@@ -122,7 +122,7 @@ function Register() {
   //TODO funktion med tre parametrar, en för firstnameReg en för funktionen för setPasswordRegError och en för errorMessageEmptyFirstName
 
   function inputValueHandler(event, inputField) {
-    inputField(event.target.value); //TODO kan inte skriva mellanslag alls. Bra/dåligt? Lägg till på de övriga fälten
+    inputField(event.target.value); //TODO Lägg till på de övriga fälten eller ta bort den helt
   }
 
   return (
@@ -131,15 +131,19 @@ function Register() {
         <Form onSubmit={clickHandler}>
           <Form.Group className="mb-3">
             <h1>Registrera dig här:</h1>
-            <InputWithLabels
-              placeholder="E-mail"
-              label="E-mail: "
-              name="email"
-              value={emailReg}
-              type="email"
-              onChange={(e) => setEmailReg(e.target.value)}
-            />
-            <div className="errorMessageEmail">{emptyEmailError}</div>
+            <Row>
+              <Col>
+                <InputWithLabels
+                  placeholder="E-mail"
+                  label="E-mail: "
+                  name="email"
+                  value={emailReg}
+                  type="email"
+                  onChange={(e) => setEmailReg(e.target.value)}
+                />
+                <div className="errorMessageEmail">{emptyEmailError}</div>
+              </Col>
+            </Row>
             <Row>
               <Col>
                 <InputWithLabels
