@@ -41,10 +41,11 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => console.log('Connected to DB'))
     .catch((err) => console.log(err));
 
-app.listen(3001);
+
 
 app.post("/reg", async (req, res, next) => {
-    let isEmailAlreadyRegistered = await User.exists({ email: req.body.email });
+    let emailLowerCase = req.body.email.toLowerCase();
+    let isEmailAlreadyRegistered = await User.exists({ email: emailLowerCase });
     if (isEmailAlreadyRegistered) {
         console.log("Email is already registered")
         return res.status(406).json({})
@@ -53,7 +54,7 @@ app.post("/reg", async (req, res, next) => {
         const userData = new User({
             firstName: req.body.firstName,
             surName: req.body.surName,
-            email: req.body.email,
+            email: emailLowerCase,
             password: encryptedPwd
         });
 
@@ -65,6 +66,29 @@ app.post("/reg", async (req, res, next) => {
         }
     }
 });
+
+async function doesUserExist(loginData) {
+    let encryptLoginPwd = crypto.createHash('md5').update(loginData.password).digest("hex");
+    let doesEmailAndPwdMatch = await User.exists({ email: loginData.email.toLowerCase(), password: encryptLoginPwd })
+    if (doesEmailAndPwdMatch) {
+        console.log('true', doesEmailAndPwdMatch)
+        return true;
+    }
+    console.log('false', doesEmailAndPwdMatch)
+    return false;
+}
+
+app.post("/login", async (req, res, next) => {
+    if (await doesUserExist(req.body)) {
+        console.log('no');
+        return res.status(200).json({})
+    } else {
+        console.log('ya');
+        return res.status(401).json({})
+    }
+})
+
+app.listen(3001);
 
 
 
