@@ -28,8 +28,14 @@ function Register() {
   const [emptyRepeatPasswordError, setEmptyRepeatPasswordError] = useState("");
   const [successOrFailureMessage, setSuccessOrFailureMessage] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const redirectToLogin = useHistory();
   //const [token, setToken] = useState(null);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
 
   function validate(firstName, surName, email) {
     let valid = true;
@@ -173,6 +179,7 @@ function Register() {
                   label="Lösenord: "
                   name="password"
                   value={passwordReg}
+                  type={showPassword ? "text" : "password"}
                   onChange={(e) => setPasswordReg(e.target.value)}
                 />
                 <div className="errorMessagePassword">{emptyPasswordError}</div>
@@ -183,9 +190,20 @@ function Register() {
                   label="Repetera lösenord: "
                   name="repeatPassword"
                   value={repeatPasswordReg}
+                  type={showPassword ? "text" : "password"}
                   onChange={(e) => setRepeatPasswordReg(e.target.value)}
                 />
                 <div className="errorMessagePassword">{emptyRepeatPasswordError}</div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Check className="checkbox"
+                  type="checkbox"
+                  id="show-password"
+                  label="Visa lösenord"
+                  onChange={toggleShowPassword}
+                />
               </Col>
             </Row>
             <button
