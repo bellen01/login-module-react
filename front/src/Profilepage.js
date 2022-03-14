@@ -8,18 +8,18 @@ function ProfilePage(props) {
   const [welcomeMessage, setWelcomeMessage] = useState('');
   const location = useLocation();
   useEffect(() => {
-    if (location.state && location.state.) {
+    if (location.state && location.state.loggedIn) {
       setWelcomeMessage('Välkommen!')
     }
   }, [location]);
 
   return (
-    <Container>
-      <Card>
-        <h1>{setWelcomeMessage}</h1>
+    <Container className="container">
+      <Card className="form">
+        <h1>{welcomeMessage}</h1>
       </Card>
     </Container>
   );
 }
 
-// export default ProfilePage;
+export default ProfilePage;

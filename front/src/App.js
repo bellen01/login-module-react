@@ -3,6 +3,7 @@ import './App.css';
 // import InputWithLabels from "./InputWithLabels";
 import Register from "./Register";
 import Login from "./Login";
+import ProfilePage from "./Profilepage";
 import { Route, Redirect } from 'react-router-dom';
 
 // let login = true;
@@ -11,13 +12,16 @@ function App() {
   return (
     <div>
       <Route path='/' exact>
-        <Redirect to='/login' />
+        <Redirect to='/reg' />
       </Route>
       <Route path="/login">
         <Login />
       </Route>
       <Route path="/reg">
         <Register />
+      </Route>
+      <Route path="/profilepage">
+        <ProfilePage />
       </Route>
     </div>
   )

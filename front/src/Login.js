@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Container, Row, Col, Card } from 'react-bootstrap';
 
@@ -25,6 +25,7 @@ function Login(props) {
   const [passwordError, setPasswordError] = useState("");
   const [loginSuccessOrFailureMessage, setLoginSuccessOrFailureMessage] = useState("");
 
+  const redirectToProfilePage = useHistory();
 
   function validate() {
     let valid = true;
@@ -63,6 +64,13 @@ function Login(props) {
       setLoginSuccessOrFailureMessage("Login lyckades!")
       // const data = await response.json();
       console.log(response);
+
+      redirectToProfilePage.push(
+        {
+          pathname: '/profilepage',
+          state: { loggedIn: true }
+        });
+
     } catch (error) {
       console.log(error);
       setLoginSuccessOrFailureMessage(error.message);
