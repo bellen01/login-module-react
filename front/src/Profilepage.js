@@ -9,7 +9,7 @@ function ProfilePage(props) {
   const location = useLocation();
   useEffect(() => {
     if (location.state && location.state.loggedIn) {
-      setWelcomeMessage('Välkommen!')
+      setWelcomeMessage(`Välkommen ${location.state.loggedInUserName}!`)
     }
   }, [location]);
 

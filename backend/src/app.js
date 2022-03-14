@@ -69,21 +69,23 @@ app.post("/reg", async (req, res, next) => {
 
 async function doesUserExist(loginData) {
     let encryptLoginPwd = crypto.createHash('md5').update(loginData.password).digest("hex");
-    let doesEmailAndPwdMatch = await User.exists({ email: loginData.email.toLowerCase(), password: encryptLoginPwd })
-    if (doesEmailAndPwdMatch) {
-        console.log('true', doesEmailAndPwdMatch)
-        return true;
-    }
-    console.log('false', doesEmailAndPwdMatch)
-    return false;
+    let doesEmailAndPwdMatch = await User.findOne({ email: loginData.email.toLowerCase(), password: encryptLoginPwd })
+    return doesEmailAndPwdMatch;
+    // if (doesEmailAndPwdMatch) {
+    //     console.log('true', doesEmailAndPwdMatch)
+    //     return true;
+    // }
+    // console.log('false', doesEmailAndPwdMatch)
+    // return false;
 }
 
 app.post("/login", async (req, res, next) => {
-    if (await doesUserExist(req.body)) {
-        console.log('no');
-        return res.status(200).json({})
-    } else {
+    const userData = await doesUserExist(req.body);
+    if (userData) {
         console.log('ya');
+        return res.status(200).json({ firstName: userData.firstName })
+    } else {
+        console.log('no');
         return res.status(401).json({})
     }
 })

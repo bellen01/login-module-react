@@ -62,13 +62,17 @@ function Login(props) {
         }
       }
       setLoginSuccessOrFailureMessage("Login lyckades!")
-      // const data = await response.json();
-      console.log(response);
+      const data = await response.json();
+      const loggedInUserName = data.firstName;
+      console.log(loggedInUserName);
 
       redirectToProfilePage.push(
         {
           pathname: '/profilepage',
-          state: { loggedIn: true }
+          state: {
+            loggedIn: true,
+            loggedInUserName
+          }
         });
 
     } catch (error) {
