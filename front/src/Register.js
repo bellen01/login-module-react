@@ -7,8 +7,8 @@ import './Register.css';
 
 let errorMessageEmptyFirstName = "Du måste fylla i förnamn"
 let errorMessageEmptySurName = "Du måste fylla i efternamn";
-let errorMessageEmptyEmail = "Du måste fylla i email och den måste innehålla @ och .";
-let errorMessageEmptyPassword = "Lösenordet måste fyllas i och måste innehålla minst en stor bokstav, en siffra samt vara minst 8 tecken långt";
+let errorMessageEmptyEmail = "Email måste innehålla @ och punkt";
+let errorMessageEmptyPassword = "Lösenordet måste innehålla minst en stor bokstav, en siffra samt vara minst 8 tecken långt";
 let errorMessageRepeatPassword = "Lösenorden stämmer inte överens";
 
 const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
@@ -147,7 +147,7 @@ function Register() {
                   type="email"
                   onChange={(e) => setEmailReg(e.target.value)}
                 />
-                <div className="errorMessageEmail">{emptyEmailError}</div>
+                <div className="errorMessage">{emptyEmailError}</div>
               </Col>
             </Row>
             <Row>
@@ -159,7 +159,7 @@ function Register() {
                   value={firstNameReg}
                   onChange={e => inputValueHandler(e, setFirstnameReg)}
                 />
-                <div>{emptyFirstnameError}</div>
+                <div className="errorMessage">{emptyFirstnameError}</div>
               </Col>
               <Col>
                 <InputWithLabels
@@ -169,7 +169,7 @@ function Register() {
                   value={surNameReg}
                   onChange={(e) => setSurnameReg(e.target.value)}
                 />
-                <div className="errorMessageSurName">{emptySurnameError}</div>
+                <div className="errorMessage">{emptySurnameError}</div>
               </Col>
             </Row>
             <Row>
@@ -182,7 +182,7 @@ function Register() {
                   type={showPassword ? "text" : "password"}
                   onChange={(e) => setPasswordReg(e.target.value)}
                 />
-                <div className="errorMessagePassword">{emptyPasswordError}</div>
+                <div className="errorMessage">{emptyPasswordError}</div>
               </Col>
               <Col>
                 <InputWithLabels
@@ -193,7 +193,7 @@ function Register() {
                   type={showPassword ? "text" : "password"}
                   onChange={(e) => setRepeatPasswordReg(e.target.value)}
                 />
-                <div className="errorMessagePassword">{emptyRepeatPasswordError}</div>
+                <div className="errorMessage">{emptyRepeatPasswordError}</div>
               </Col>
             </Row>
             <Row>
