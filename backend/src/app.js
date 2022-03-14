@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    surName: {
+    lastName: {
         type: String,
         required: true
     },
@@ -53,7 +53,7 @@ app.post("/reg", async (req, res, next) => {
         let encryptedPwd = crypto.createHash('md5').update(req.body.password).digest("hex");
         const userData = new User({
             firstName: req.body.firstName,
-            surName: req.body.surName,
+            lastName: req.body.lastName,
             email: emailLowerCase,
             password: encryptedPwd
         });

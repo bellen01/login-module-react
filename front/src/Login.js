@@ -7,7 +7,7 @@ import { Form, Container, Row, Col, Card } from 'react-bootstrap';
 let errorMessageEmptyEmail = "Du måste fylla i email";
 let errorMessageEmptyPassword = "Du måste fylla i lösenord";
 
-function Login(props) {
+function Login() {
 
   const [regSuccessMessage, setRegSuccessMessage] = useState('');
   const location = useLocation();
@@ -23,6 +23,7 @@ function Login(props) {
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
   const [loginSuccessOrFailureMessage, setLoginSuccessOrFailureMessage] = useState("");
 
   const redirectToProfilePage = useHistory();

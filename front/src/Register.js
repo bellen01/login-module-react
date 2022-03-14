@@ -5,10 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Container, Row, Col, Button, Card } from 'react-bootstrap'
 import './Register.css';
 
-let errorMessageEmptyFirstName = "Du måste fylla i förnamn"
-let errorMessageEmptySurName = "Du måste fylla i efternamn";
-let errorMessageEmptyEmail = "Email måste innehålla @ och punkt";
-let errorMessageEmptyPassword = "Lösenordet måste innehålla minst en stor bokstav, en siffra samt vara minst 8 tecken långt";
+let errorMessageFirstName = "Du måste fylla i förnamn"
+let errorMessageLastName = "Du måste fylla i efternamn";
+let errorMessageEmail = "Email måste innehålla @ och punkt";
+let errorMessagePassword = "Lösenordet måste innehålla minst en stor bokstav, en siffra samt vara minst 8 tecken långt";
 let errorMessageRepeatPassword = "Lösenorden stämmer inte överens";
 
 const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
@@ -16,52 +16,52 @@ const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 
 function Register() {
   const [firstNameReg, setFirstnameReg] = useState("lnfr");
-  const [surNameReg, setSurnameReg] = useState("lnkrg");
+  const [lastNameReg, setLastNameReg] = useState("lnkrg");
   const [emailReg, setEmailReg] = useState("lnr@kjr.com");
   const [passwordReg, setPasswordReg] = useState("Katt2020");
   const [repeatPasswordReg, setRepeatPasswordReg] = useState("Katt2020");
 
-  const [emptyFirstnameError, setEmptyFirstnameError] = useState("");
-  const [emptySurnameError, setEmptySurnameError] = useState("");
-  const [emptyEmailError, setEmptyEmailError] = useState("");
-  const [emptyPasswordError, setEmptyPasswordError] = useState("");
-  const [emptyRepeatPasswordError, setEmptyRepeatPasswordError] = useState("");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [repeatPasswordError, setRepeatPasswordError] = useState("");
+
   const [successOrFailureMessage, setSuccessOrFailureMessage] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
 
   const redirectToLogin = useHistory();
-  //const [token, setToken] = useState(null);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   }
 
-  function validate(firstName, surName, email) {
+  function validate(firstName, lastName, email) {
     let valid = true;
-    setEmptyFirstnameError("");
-    setEmptySurnameError("");
-    setEmptyEmailError("");
-    setEmptyPasswordError("");
-    setEmptyRepeatPasswordError("");
+    setFirstNameError("");
+    setLastNameError("");
+    setEmailError("");
+    setPasswordError("");
+    setRepeatPasswordError("");
     if (firstName == "") {
-      setEmptyFirstnameError(errorMessageEmptyFirstName);
+      setFirstNameError(errorMessageFirstName);
       valid = false;
     }
-    if (surName == "") {
-      setEmptySurnameError(errorMessageEmptySurName);
+    if (lastName == "") {
+      setLastNameError(errorMessageLastName);
       valid = false;
     }
     if (!validEmail.test(email)) {
-      setEmptyEmailError(errorMessageEmptyEmail);
+      setEmailError(errorMessageEmail);
       valid = false;
     }
     if (!validPassword.test(passwordReg)) {
-      setEmptyPasswordError(errorMessageEmptyPassword);
+      setPasswordError(errorMessagePassword);
       valid = false;
     }
     if (passwordReg != repeatPasswordReg) {
-      setEmptyRepeatPasswordError(errorMessageRepeatPassword);
+      setRepeatPasswordError(errorMessageRepeatPassword);
       valid = false;
     }
     console.log(valid);
@@ -105,21 +105,21 @@ function Register() {
 
   function clickHandler(event) {
     const firstName = firstNameReg.trim();
-    const surName = surNameReg.trim();
+    const lastName = lastNameReg.trim();
     const email = emailReg.trim();
     event.preventDefault();
-    let validInput = validate(firstName, surName, email);
+    let validInput = validate(firstName, lastName, email);
     if (validInput === true) {
       const inputData = {
         firstName,
-        surName: surName,
+        lastName: lastName,
         email: email,
         password: passwordReg
       }
       sendInputToBackend(inputData);
       console.log(inputData);
-      // setFirstnameReg("");
-      // setSurnameReg("");
+      // setFirstNameReg("");
+      // setLastNameReg("");
       // setEmailReg("");
       // setPasswordReg("");
     }
@@ -147,7 +147,7 @@ function Register() {
                   type="email"
                   onChange={(e) => setEmailReg(e.target.value)}
                 />
-                <div className="errorMessage">{emptyEmailError}</div>
+                <div className="errorMessage">{emailError}</div>
               </Col>
             </Row>
             <Row>
@@ -159,17 +159,17 @@ function Register() {
                   value={firstNameReg}
                   onChange={e => inputValueHandler(e, setFirstnameReg)}
                 />
-                <div className="errorMessage">{emptyFirstnameError}</div>
+                <div className="errorMessage">{firstNameError}</div>
               </Col>
               <Col>
                 <InputWithLabels
                   placeholder="Efternamn"
                   label="Efternamn: "
-                  name="surName"
-                  value={surNameReg}
-                  onChange={(e) => setSurnameReg(e.target.value)}
+                  name="lastName"
+                  value={lastNameReg}
+                  onChange={(e) => setLastNameReg(e.target.value)}
                 />
-                <div className="errorMessage">{emptySurnameError}</div>
+                <div className="errorMessage">{lastNameError}</div>
               </Col>
             </Row>
             <Row>
@@ -182,7 +182,7 @@ function Register() {
                   type={showPassword ? "text" : "password"}
                   onChange={(e) => setPasswordReg(e.target.value)}
                 />
-                <div className="errorMessage">{emptyPasswordError}</div>
+                <div className="errorMessage">{passwordError}</div>
               </Col>
               <Col>
                 <InputWithLabels
@@ -193,7 +193,7 @@ function Register() {
                   type={showPassword ? "text" : "password"}
                   onChange={(e) => setRepeatPasswordReg(e.target.value)}
                 />
-                <div className="errorMessage">{emptyRepeatPasswordError}</div>
+                <div className="errorMessage">{repeatPasswordError}</div>
               </Col>
             </Row>
             <Row>
