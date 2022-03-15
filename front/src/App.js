@@ -1,81 +1,32 @@
 import React from "react";
-import './App.css';
 import Register from "./Register";
 import Login from "./Login";
 import ProfilePage from "./Profilepage";
-import LoggedOut from "./LoggedOut";
 import { Route, Redirect } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Card } from 'react-bootstrap';
+import './App.css';
 
 
 function App() {
   return (
-    <div>
-      <Route path='/' exact>
-        <Redirect to='/reg' />
-      </Route>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/reg">
-        <Register />
-      </Route>
-      <Route path="/profilepage">
-        <ProfilePage />
-      </Route>
-      <Route path="/loggedout">
-        <LoggedOut />
-      </Route>
-    </div>
+    <Container className="container">
+      <Card className="form">
+        <Route path='/' exact>
+          <Redirect to='/reg' />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/reg">
+          <Register />
+        </Route>
+        <Route path="/profilepage">
+          <ProfilePage />
+        </Route>
+      </Card>
+    </Container>
   )
-
-  // let login = true;
-
-  // if (login === true) {
-  //   return (
-  //     <Login />
-  //   );
-  // } else {
-  //   return (
-  //     <Register />
-  //   );
-  // }
 }
-
-// function App() {
-//   const [firstnameReg, setFirstnameReg] = useState("");
-//   const [surnameReg, setSurnameReg] = useState("");
-//   const [emailReg, setEmailReg] = useState("");
-//   const [passwordReg, setPasswordReg] = useState("");
-
-//   return (
-//     <div className="App">
-//       <div className="registration">
-//         <h1>Registrera dig här:</h1>
-//         <InputWithLabels label="Förnamn" name="firstName" value={firstnameReg} onChange={(e) => setFirstnameReg(e.target.value)} />
-//         <br />
-//         <InputWithLabels label="Efternamn" name="surName" value={surnameReg} onChange={(e) => setSurnameReg(e.target.value)} />
-//         <br />
-//         <InputWithLabels label="Lösenord" name="password" value={passwordReg} onChange={(e) => setPasswordReg(e.target.value)} />
-//         <br />
-//         <InputWithLabels label="e-mail" name="email" value={emailReg} type="email" onChange={(e) => setEmailReg(e.target.value)} />
-//         <button type="button" className="btn">Registrera</button>
-//       </div>
-
-//       <div className="login">
-//         <h1>Logga in här:</h1>
-//         <input
-//           type="email"
-//           placeholder="Email"
-//         />
-//         <input
-//           type="password"
-//           placeholder="Lösenord"
-//         />
-//         <button type="button" className="btn">Logga in</button>
-//       </div>
-//     </div>
-//   );
-// }
 
 export default App;

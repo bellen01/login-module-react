@@ -8,34 +8,28 @@ function ProfilePage(props) {
 
   const redirectToLogin = useHistory();
 
-  const [welcomeMessage, setWelcomeMessage] = useState('');
+  // const [welcomeMessage, setWelcomeMessage] = useState('');
   const location = useLocation();
-  useEffect(() => {
-    if (location.state && location.state.loggedIn) {
-      setWelcomeMessage(`Välkommen ${location.state.loggedInUserName}!`)
-    }
-  }, [location]);
+
 
   function logoutHandler() {
     redirectToLogin.push(
       {
-        pathname: '/loggedout',
+        pathname: '/login',
         state: { logout: true }
       });
   }
 
   if (location.state && location.state.loggedIn) {
     return (
-      <Container className="container">
-        <Card className="form">
-          <h1>{welcomeMessage}</h1>
-          <button
-            type="button"
-            className="btn"
-            onClick={logoutHandler}
-          >Logga ut</button>
-        </Card>
-      </Container>
+      <div>
+        <h1>Välkommen {location.state.loggedInUserName}!</h1>
+        <button
+          type="button"
+          className="btn"
+          onClick={logoutHandler}
+        >Logga ut</button>
+      </div>
     );
   } else {
     return <Redirect to="/login" />

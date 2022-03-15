@@ -130,85 +130,81 @@ function Register() {
   // }
 
   return (
-    <Container className="container">
-      <Card className="form">
-        <Form onSubmit={submitHandler}>
-          <Form.Group className="mb-3">
-            <h1>Registrera dig här:</h1>
-            <Row>
-              <Col>
-                <InputWithLabels
-                  placeholder="E-mail"
-                  name="email"
-                  value={emailReg}
-                  type="email"
-                  onChange={(e) => setEmailReg(e.target.value)}
-                />
-                <div className="errorMessage">{emailError}</div>
-              </Col>
-            </Row>
-            <Row>
-              <Col md>
-                <InputWithLabels
-                  placeholder="Förnamn"
-                  name="firstName"
-                  value={firstNameReg}
-                  onChange={e => setFirstNameReg(e.target.value)}
-                />
-                <div className="errorMessage">{firstNameError}</div>
-              </Col>
-              <Col md>
-                <InputWithLabels
-                  placeholder="Efternamn"
-                  name="lastName"
-                  value={lastNameReg}
-                  onChange={(e) => setLastNameReg(e.target.value)}
-                />
-                <div className="errorMessage">{lastNameError}</div>
-              </Col>
-            </Row>
-            <Row>
-              <Col md>
-                <InputWithLabels
-                  placeholder="Lösenord"
-                  name="password"
-                  value={passwordReg}
-                  type={showPassword ? "text" : "password"}
-                  onChange={(e) => setPasswordReg(e.target.value)}
-                />
-                <div className="errorMessage">{passwordError}</div>
-              </Col>
-              <Col md>
-                <InputWithLabels
-                  placeholder="Upprepa lösenord"
-                  name="repeatPassword"
-                  value={repeatPasswordReg}
-                  type={showPassword ? "text" : "password"}
-                  onChange={(e) => setRepeatPasswordReg(e.target.value)}
-                />
-                <div className="errorMessage">{repeatPasswordError}</div>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Check className="checkbox"
-                  type="checkbox"
-                  id="show-password"
-                  label="Visa lösenord"
-                  onChange={toggleShowPassword}
-                />
-              </Col>
-            </Row>
-            <button
-              type="submit"
-              className="btn"
-            >Registrera</button>
-            <p className="already-registered">Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
-            <div>{successOrFailureMessage}</div>
-          </Form.Group>
-        </Form>
-      </Card>
-    </Container>
+    <Form onSubmit={submitHandler}>
+      <Form.Group className="mb-3">
+        <h1>Registrera dig här:</h1>
+        <Row>
+          <Col>
+            <InputWithLabels
+              placeholder="E-mail"
+              name="email"
+              value={emailReg}
+              type="email"
+              onChange={(e) => setEmailReg(e.target.value)}
+            />
+            <div className="errorMessage">{emailError}</div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md>
+            <InputWithLabels
+              placeholder="Förnamn"
+              name="firstName"
+              value={firstNameReg}
+              onChange={e => setFirstNameReg(e.target.value)}
+            />
+            <div className="errorMessage">{firstNameError}</div>
+          </Col>
+          <Col md>
+            <InputWithLabels
+              placeholder="Efternamn"
+              name="lastName"
+              value={lastNameReg}
+              onChange={(e) => setLastNameReg(e.target.value)}
+            />
+            <div className="errorMessage">{lastNameError}</div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md>
+            <InputWithLabels
+              placeholder="Lösenord"
+              name="password"
+              value={passwordReg}
+              type={showPassword ? "text" : "password"}
+              onChange={(e) => setPasswordReg(e.target.value)}
+            />
+            <div className="errorMessage">{passwordError}</div>
+          </Col>
+          <Col md>
+            <InputWithLabels
+              placeholder="Upprepa lösenord"
+              name="repeatPassword"
+              value={repeatPasswordReg}
+              type={showPassword ? "text" : "password"}
+              onChange={(e) => setRepeatPasswordReg(e.target.value)}
+            />
+            <div className="errorMessage">{repeatPasswordError}</div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Check className="checkbox"
+              type="checkbox"
+              id="show-password"
+              label="Visa lösenord"
+              onChange={toggleShowPassword}
+            />
+          </Col>
+        </Row>
+        <button
+          type="submit"
+          className="btn"
+        >Registrera</button>
+        <p className="already-registered">Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
+        <div>{successOrFailureMessage}</div>
+      </Form.Group>
+    </Form>
   );
 }
 

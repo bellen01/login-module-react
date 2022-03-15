@@ -15,7 +15,9 @@ function Login() {
   const location = useLocation();
   useEffect(() => {
     if (location.state && location.state.success) {
-      setRegSuccessMessage('Du är registrerad, logga in nedan')
+      setRegSuccessMessage('Du är registrerad, logga in nedan');
+    } else if (location.state && location.state.logout) {
+      setRegSuccessMessage('Du är utloggad');
     }
   }, [location]);
 
@@ -95,51 +97,46 @@ function Login() {
         password: loginPassword
       }
       checkIfUserExist(loginData);
-      console.log(loginData);
       // setLoginEmail("");
       // setLoginPassword("");
     }
   }
 
   return (
-    <Container className="container">
-      <Card className="form">
-        <Form onSubmit={loginSubmitHandler}>
-          <Form.Group className="mb-3">
-            <div>{regSuccessMessage}</div>
-            <h1>Logga in här:</h1>
-            <Row>
-              <Col md>
-                <InputWithLabels
-                  type="email"
-                  placeholder="Email"
-                  value={loginEmail}
-                  name="email"
-                  onChange={(e) => setLoginEmail(e.target.value)}
-                />
-                <div>{emailError}</div>
-              </Col>
-              <Col md>
-                <InputWithLabels
-                  type="password"
-                  placeholder="Lösenord"
-                  value={loginPassword}
-                  name="password"
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                />
-                <div>{passwordError}</div>
-              </Col>
-            </Row>
-            <button
-              type="submit"
-              className="btn"
-            >Logga in</button>
-            <p>Inte registrerad ännu? <Link to='/reg'>Klicka här!</Link></p>
-            <div>{loginSuccessOrFailureMessage}</div>
-          </Form.Group>
-        </Form>
-      </Card>
-    </Container>
+    <Form onSubmit={loginSubmitHandler}>
+      <Form.Group className="mb-3">
+        <div>{regSuccessMessage}</div>
+        <h1>Logga in här:</h1>
+        <Row>
+          <Col md>
+            <InputWithLabels
+              type="email"
+              placeholder="Email"
+              value={loginEmail}
+              name="email"
+              onChange={(e) => setLoginEmail(e.target.value)}
+            />
+            <div>{emailError}</div>
+          </Col>
+          <Col md>
+            <InputWithLabels
+              type="password"
+              placeholder="Lösenord"
+              value={loginPassword}
+              name="password"
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+            <div>{passwordError}</div>
+          </Col>
+        </Row>
+        <button
+          type="submit"
+          className="btn"
+        >Logga in</button>
+        <p>Inte registrerad ännu? <Link to='/reg'>Klicka här!</Link></p>
+        <div>{loginSuccessOrFailureMessage}</div>
+      </Form.Group>
+    </Form>
   );
 }
 
