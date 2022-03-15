@@ -3,6 +3,7 @@ import './App.css';
 import Register from "./Register";
 import Login from "./Login";
 import ProfilePage from "./Profilepage";
+import LoggedOut from "./LoggedOut";
 import { Route, Redirect } from 'react-router-dom';
 
 
@@ -21,6 +22,9 @@ function App() {
       </Route>
       <Route path="/profilepage">
         <ProfilePage />
+      </Route>
+      <Route path="/loggedout">
+        <LoggedOut />
       </Route>
     </div>
   )

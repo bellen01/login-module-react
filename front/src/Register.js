@@ -79,7 +79,6 @@ function Register() {
           'Content-Type': 'application/json'
         }
       })
-      // const data = await response.json();
       console.log(response);
 
       if (!response.ok) {
@@ -95,7 +94,6 @@ function Register() {
           state: { success: true }
         });
 
-      // setSuccessOrFailureMessage("Du är nu registrerad, yay!")
 
     } catch (error) {
       console.log(error);
@@ -141,7 +139,6 @@ function Register() {
               <Col>
                 <InputWithLabels
                   placeholder="E-mail"
-                  label="E-mail: "
                   name="email"
                   value={emailReg}
                   type="email"
@@ -154,7 +151,6 @@ function Register() {
               <Col md>
                 <InputWithLabels
                   placeholder="Förnamn"
-                  label="Förnamn: "
                   name="firstName"
                   value={firstNameReg}
                   onChange={e => setFirstNameReg(e.target.value)}
@@ -164,7 +160,6 @@ function Register() {
               <Col md>
                 <InputWithLabels
                   placeholder="Efternamn"
-                  label="Efternamn: "
                   name="lastName"
                   value={lastNameReg}
                   onChange={(e) => setLastNameReg(e.target.value)}
@@ -176,7 +171,6 @@ function Register() {
               <Col md>
                 <InputWithLabels
                   placeholder="Lösenord"
-                  label="Lösenord: "
                   name="password"
                   value={passwordReg}
                   type={showPassword ? "text" : "password"}
@@ -187,7 +181,6 @@ function Register() {
               <Col md>
                 <InputWithLabels
                   placeholder="Upprepa lösenord"
-                  label="Repetera lösenord: "
                   name="repeatPassword"
                   value={repeatPasswordReg}
                   type={showPassword ? "text" : "password"}

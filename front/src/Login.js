@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Container, Row, Col, Card } from 'react-bootstrap';
+import InputWithLabels from "./InputWithLabels";
 
 
 let errorMessageEmptyEmail = "Du måste fylla i email";
@@ -10,6 +11,7 @@ let errorMessageEmptyPassword = "Du måste fylla i lösenord";
 function Login() {
 
   const [regSuccessMessage, setRegSuccessMessage] = useState('');
+
   const location = useLocation();
   useEffect(() => {
     if (location.state && location.state.success) {
@@ -108,19 +110,21 @@ function Login() {
             <h1>Logga in här:</h1>
             <Row>
               <Col md>
-                <Form.Control className="form-input"
+                <InputWithLabels
                   type="email"
                   placeholder="Email"
                   value={loginEmail}
+                  name="email"
                   onChange={(e) => setLoginEmail(e.target.value)}
                 />
                 <div>{emailError}</div>
               </Col>
               <Col md>
-                <Form.Control className="form-input"
+                <InputWithLabels
                   type="password"
                   placeholder="Lösenord"
                   value={loginPassword}
+                  name="password"
                   onChange={(e) => setLoginPassword(e.target.value)}
                 />
                 <div>{passwordError}</div>
