@@ -85,10 +85,11 @@ function Login() {
 
   function loginSubmitHandler(event) {
     event.preventDefault();
+    const email = loginEmail.trim();
     let validInput = validate();
     if (validInput === true) {
       const loginData = {
-        email: loginEmail,
+        email: email,
         password: loginPassword
       }
       checkIfUserExist(loginData);
@@ -106,7 +107,7 @@ function Login() {
             <div>{regSuccessMessage}</div>
             <h1>Logga in här:</h1>
             <Row>
-              <Col>
+              <Col md>
                 <Form.Control className="form-input"
                   type="email"
                   placeholder="Email"
@@ -115,7 +116,7 @@ function Login() {
                 />
                 <div>{emailError}</div>
               </Col>
-              <Col>
+              <Col md>
                 <Form.Control className="form-input"
                   type="password"
                   placeholder="Lösenord"

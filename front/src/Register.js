@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import InputWithLabels from "./InputWithLabels";
 import { Link, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Container, Row, Col, Button, Card } from 'react-bootstrap'
+import { Form, Container, Row, Col, Card } from 'react-bootstrap'
 import './Register.css';
 
 let errorMessageFirstName = "Du måste fylla i förnamn"
@@ -15,7 +15,7 @@ const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
 const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 
 function Register() {
-  const [firstNameReg, setFirstnameReg] = useState("lnfr");
+  const [firstNameReg, setFirstNameReg] = useState("lnfr");
   const [lastNameReg, setLastNameReg] = useState("lnkrg");
   const [emailReg, setEmailReg] = useState("lnr@kjr.com");
   const [passwordReg, setPasswordReg] = useState("Katt2020");
@@ -103,7 +103,7 @@ function Register() {
     }
   }
 
-  function clickHandler(event) {
+  function submitHandler(event) {
     const firstName = firstNameReg.trim();
     const lastName = lastNameReg.trim();
     const email = emailReg.trim();
@@ -111,7 +111,7 @@ function Register() {
     let validInput = validate(firstName, lastName, email);
     if (validInput === true) {
       const inputData = {
-        firstName,
+        firstName: firstName,
         lastName: lastName,
         email: email,
         password: passwordReg
@@ -127,14 +127,14 @@ function Register() {
 
   //TODO funktion med tre parametrar, en för firstnameReg en för funktionen för setPasswordRegError och en för errorMessageEmptyFirstName
 
-  function inputValueHandler(event, inputField) {
-    inputField(event.target.value); //TODO Lägg till på de övriga fälten eller ta bort den helt
-  }
+  // function inputValueHandler(event, inputField) {
+  //   inputField(event.target.value); //TODO Lägg till på de övriga fälten eller ta bort den helt
+  // }
 
   return (
     <Container className="container">
       <Card className="form">
-        <Form onSubmit={clickHandler}>
+        <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3">
             <h1>Registrera dig här:</h1>
             <Row>
@@ -151,17 +151,17 @@ function Register() {
               </Col>
             </Row>
             <Row>
-              <Col>
+              <Col md>
                 <InputWithLabels
                   placeholder="Förnamn"
                   label="Förnamn: "
                   name="firstName"
                   value={firstNameReg}
-                  onChange={e => inputValueHandler(e, setFirstnameReg)}
+                  onChange={e => setFirstNameReg(e.target.value)}
                 />
                 <div className="errorMessage">{firstNameError}</div>
               </Col>
-              <Col>
+              <Col md>
                 <InputWithLabels
                   placeholder="Efternamn"
                   label="Efternamn: "
@@ -173,7 +173,7 @@ function Register() {
               </Col>
             </Row>
             <Row>
-              <Col>
+              <Col md>
                 <InputWithLabels
                   placeholder="Lösenord"
                   label="Lösenord: "
@@ -184,7 +184,7 @@ function Register() {
                 />
                 <div className="errorMessage">{passwordError}</div>
               </Col>
-              <Col>
+              <Col md>
                 <InputWithLabels
                   placeholder="Upprepa lösenord"
                   label="Repetera lösenord: "

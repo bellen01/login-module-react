@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import './App.css';
-// import InputWithLabels from "./InputWithLabels";
 import Register from "./Register";
 import Login from "./Login";
 import ProfilePage from "./Profilepage";
 import { Route, Redirect } from 'react-router-dom';
 
-// let login = true;
+
 
 function App() {
   return (
@@ -25,6 +24,9 @@ function App() {
       </Route>
     </div>
   )
+
+  // let login = true;
+
   // if (login === true) {
   //   return (
   //     <Login />
