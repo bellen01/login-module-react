@@ -27,9 +27,10 @@ h1 {
 .registered-Not-registered {
   font-family: 'Open Sans', sans-serif;
   font-weight: 500;
-  color: rgb(61, 221, 181);
+  /* color: navy; */
+  /* color: rgb(61, 221, 181); */
   /* color: rgb(52, 120, 160); */
-  /* color: lightblue; */
+  color: lightblue;
 }
 
 .passwordRules {
@@ -39,9 +40,10 @@ h1 {
 }
 
 .form a {
-  color: rgb(61, 221, 181);
+  /* color: navy; */
+  /* color: rgb(61, 221, 181); */
   /* color: rgb(52, 120, 160); */
-  /* color: lightblue; */
+  color: lightblue;
 }
 
 .checkbox {
@@ -49,7 +51,6 @@ h1 {
   color: black;
   font-weight: 400;
   text-align: left;
-
 }
 
 .checkbox:checked {
@@ -67,18 +68,24 @@ h1 {
   padding-left: 30px;
   padding-right: 30px;
   font-family: 'Gotu', sans-serif;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .btn:focus {
-  box-shadow: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn:hover {
+  background-color: lightblue;
 }
 
 .errorMessage,
 .errorMessage-2 {
   font-family: 'Open Sans', sans-serif;
-  color: rgb(255, 136, 0);
-  text-align: left;
+  /* color: #EE4E34; */
+  color: black;
+  /* background-color: rgba(255,255,255,0.7); */
 }
 
 .errorMessage {
@@ -87,4 +94,39 @@ h1 {
 
 .errorMessage-2 {
   text-align: center;
+}
+
+.form-input {
+  background-color: rgba(255,255,255,0.4);
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.form-input:focus {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.7);
+}
+
+@media screen and (max-width: 800px) {
+  .errorMessage,
+  .errorMessage-2 {
+    color: white;
+  }
+
+  .form-input::placeholder {
+    color: rgb(83, 83, 83);
+  }
+
+  .form {
+    width: 80%;
+    margin: 10px;
+    padding: 20px;
+  }
+
+  .checkbox {
+    color: white;
+  }
+
 }

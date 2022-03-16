@@ -7,7 +7,7 @@ const crypto = require('crypto');
 
 const app = express();
 
-app.use(cors()); //TODO kolla om detta fungerar
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

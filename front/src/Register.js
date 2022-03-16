@@ -5,11 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Row, Col } from 'react-bootstrap'
 import './Register.css';
 
-let errorMessageFirstName = "Du måste fylla i förnamn"
-let errorMessageLastName = "Du måste fylla i efternamn";
-let errorMessageEmail = "Email måste innehålla @ och punkt";
-let errorMessagePassword = "Lösenordet måste ha minst 8 tecken, en stor bokstav & en siffra";
-let errorMessageRepeatPassword = "Lösenorden stämmer inte överens";
+let errorMessageFirstName = "! Du måste fylla i förnamn"
+let errorMessageLastName = "! Du måste fylla i efternamn";
+let errorMessageEmail = "! Email måste innehålla @ och punkt";
+let errorMessagePassword = "! Lösenordet måste ha minst 8 tecken, en stor bokstav & en siffra";
+let errorMessageRepeatPassword = "! Lösenorden stämmer inte överens";
 
 const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
 const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
