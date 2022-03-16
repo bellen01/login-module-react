@@ -3,7 +3,7 @@ import InputWithLabels from "./InputWithLabels";
 import { Link, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Row, Col } from 'react-bootstrap'
-import './Register.css';
+import './style.css';
 
 let errorMessageFirstName = "! Du måste fylla i förnamn"
 let errorMessageLastName = "! Du måste fylla i efternamn";
