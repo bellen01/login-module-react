@@ -11,7 +11,6 @@ function InputWithLabels(props) {
 
   return (
     <div>
-      {/* <Form.Label htmlFor="{props.name}" className="form-label">{props.label}</Form.Label> */}
       <Form.Control className="form-input"
         placeholder={props.placeholder}
         value={props.value}

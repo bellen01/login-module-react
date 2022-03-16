@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Container, Row, Col, Card } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 import InputWithLabels from "./InputWithLabels";
 
 
@@ -9,18 +9,9 @@ let errorMessageEmptyEmail = "Du måste fylla i email";
 let errorMessageEmptyPassword = "Du måste fylla i lösenord";
 
 function Login() {
+  const location = useLocation();
 
   const [regSuccessMessage, setRegSuccessMessage] = useState('');
-
-  const location = useLocation();
-  useEffect(() => {
-    if (location.state && location.state.success) {
-      setRegSuccessMessage('Du är registrerad, logga in nedan');
-    } else if (location.state && location.state.logout) {
-      setRegSuccessMessage('Du är utloggad');
-    }
-  }, [location]);
-
 
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -31,6 +22,15 @@ function Login() {
   const [loginSuccessOrFailureMessage, setLoginSuccessOrFailureMessage] = useState("");
 
   const redirectToProfilePage = useHistory();
+
+  useEffect(() => {
+    if (location.state && location.state.success) {
+      setRegSuccessMessage('Du är registrerad, logga in nedan');
+    } else if (location.state && location.state.logout) {
+      setRegSuccessMessage('Du är utloggad');
+    }
+  }, [location]);
+
 
   function validate() {
     let valid = true;
@@ -83,7 +83,6 @@ function Login() {
     } catch (error) {
       console.log(error);
       setLoginSuccessOrFailureMessage(error.message);
-
     }
   }
 
@@ -116,7 +115,7 @@ function Login() {
               name="email"
               onChange={(e) => setLoginEmail(e.target.value)}
             />
-            <div>{emailError}</div>
+            <div className="errorMessage">{emailError}</div>
           </Col>
           <Col md>
             <InputWithLabels
@@ -126,15 +125,15 @@ function Login() {
               name="password"
               onChange={(e) => setLoginPassword(e.target.value)}
             />
-            <div>{passwordError}</div>
+            <div className="errorMessage">{passwordError}</div>
           </Col>
         </Row>
         <button
           type="submit"
           className="btn"
         >Logga in</button>
-        <p>Inte registrerad ännu? <Link to='/reg'>Klicka här!</Link></p>
-        <div>{loginSuccessOrFailureMessage}</div>
+        <div className="errorMessage-2">{loginSuccessOrFailureMessage}</div>
+        <p className="registered-Not-registered">Inte registrerad ännu? <Link to='/reg'>Klicka här!</Link></p>
       </Form.Group>
     </Form>
   );

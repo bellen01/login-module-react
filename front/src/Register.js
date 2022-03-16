@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InputWithLabels from "./InputWithLabels";
 import { Link, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Container, Row, Col, Card } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import './Register.css';
 
 let errorMessageFirstName = "Du måste fylla i förnamn"
 let errorMessageLastName = "Du måste fylla i efternamn";
 let errorMessageEmail = "Email måste innehålla @ och punkt";
-let errorMessagePassword = "Lösenordet måste innehålla minst en stor bokstav, en siffra samt vara minst 8 tecken långt";
+let errorMessagePassword = "Lösenordet måste ha minst 8 tecken, en stor bokstav & en siffra";
 let errorMessageRepeatPassword = "Lösenorden stämmer inte överens";
 
 const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
@@ -69,7 +69,6 @@ function Register() {
   }
 
 
-
   async function sendInputToBackend(inputData) {
     try {
       const response = await fetch('http://localhost:3001/reg', {
@@ -93,7 +92,6 @@ function Register() {
           pathname: '/login',
           state: { success: true }
         });
-
 
     } catch (error) {
       console.log(error);
@@ -124,10 +122,6 @@ function Register() {
   }
 
   //TODO funktion med tre parametrar, en för firstnameReg en för funktionen för setPasswordRegError och en för errorMessageEmptyFirstName
-
-  // function inputValueHandler(event, inputField) {
-  //   inputField(event.target.value); //TODO Lägg till på de övriga fälten eller ta bort den helt
-  // }
 
   return (
     <Form onSubmit={submitHandler}>
@@ -186,6 +180,7 @@ function Register() {
             />
             <div className="errorMessage">{repeatPasswordError}</div>
           </Col>
+          {/* <p className="passwordRules">Lösenordet måste ha minst 8 tecken, en stor bokstav & en siffra</p> */}
         </Row>
         <Row>
           <Col>
@@ -201,13 +196,11 @@ function Register() {
           type="submit"
           className="btn"
         >Registrera</button>
-        <p className="already-registered">Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
-        <div>{successOrFailureMessage}</div>
+        <div className="errorMessage-2">{successOrFailureMessage}</div>
+        <p className="registered-Not-registered">Redan registrerat dig? <Link to='/login'>Logga in här!</Link> </p>
       </Form.Group>
     </Form>
   );
 }
 
 export default Register;
-
-{/* lägg till variabler, skapa funktion för validering, skapa fält för felmeddelande, skapa post (som api-uppgiften)*/ }
