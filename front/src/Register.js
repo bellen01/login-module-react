@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Row, Col } from 'react-bootstrap'
 import './style.css';
 
+
 let errorMessageFirstName = "! Du måste fylla i förnamn"
 let errorMessageLastName = "! Du måste fylla i efternamn";
 let errorMessageEmail = "! Email måste innehålla @ och punkt";
@@ -14,12 +15,13 @@ let errorMessageRepeatPassword = "! Lösenorden stämmer inte överens";
 const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
 const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 
+
 function Register() {
-  const [firstNameReg, setFirstNameReg] = useState("lnfr");
-  const [lastNameReg, setLastNameReg] = useState("lnkrg");
-  const [emailReg, setEmailReg] = useState("lnr@kjr.com");
-  const [passwordReg, setPasswordReg] = useState("Katt2020");
-  const [repeatPasswordReg, setRepeatPasswordReg] = useState("Katt2020");
+  const [firstNameReg, setFirstNameReg] = useState("");
+  const [lastNameReg, setLastNameReg] = useState("");
+  const [emailReg, setEmailReg] = useState("");
+  const [passwordReg, setPasswordReg] = useState("");
+  const [repeatPasswordReg, setRepeatPasswordReg] = useState("");
 
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
@@ -44,27 +46,32 @@ function Register() {
     setEmailError("");
     setPasswordError("");
     setRepeatPasswordError("");
+
     if (firstName == "") {
       setFirstNameError(errorMessageFirstName);
       valid = false;
     }
+
     if (lastName == "") {
       setLastNameError(errorMessageLastName);
       valid = false;
     }
+
     if (!validEmail.test(email)) {
       setEmailError(errorMessageEmail);
       valid = false;
     }
+
     if (!validPassword.test(passwordReg)) {
       setPasswordError(errorMessagePassword);
       valid = false;
     }
+
     if (passwordReg != repeatPasswordReg) {
       setRepeatPasswordError(errorMessageRepeatPassword);
       valid = false;
     }
-    console.log(valid);
+
     return valid;
   }
 
@@ -78,7 +85,6 @@ function Register() {
           'Content-Type': 'application/json'
         }
       })
-      console.log(response);
 
       if (!response.ok) {
         if (response.status === 406) {
@@ -87,24 +93,27 @@ function Register() {
           throw new Error("Något gick fel, försök igen senare")
         }
       }
-      redirectToLogin.push(
-        {
-          pathname: '/login',
-          state: { success: true }
-        });
+
+      redirectToLogin.push({
+        pathname: '/login',
+        state: { success: true }
+      });
 
     } catch (error) {
-      console.log(error);
+      console.log("Failed to post", error);
       setSuccessOrFailureMessage(error.message);
     }
   }
 
   function submitHandler(event) {
+    event.preventDefault();
+
     const firstName = firstNameReg.trim();
     const lastName = lastNameReg.trim();
     const email = emailReg.trim();
-    event.preventDefault();
+
     let validInput = validate(firstName, lastName, email);
+
     if (validInput === true) {
       const inputData = {
         firstName: firstName,
@@ -113,15 +122,13 @@ function Register() {
         password: passwordReg
       }
       sendInputToBackend(inputData);
-      console.log(inputData);
-      // setFirstNameReg("");
-      // setLastNameReg("");
-      // setEmailReg("");
-      // setPasswordReg("");
+      setFirstNameReg("");
+      setLastNameReg("");
+      setEmailReg("");
+      setPasswordReg("");
     }
   }
 
-  //TODO funktion med tre parametrar, en för firstnameReg en för funktionen för setPasswordRegError och en för errorMessageEmptyFirstName
 
   return (
     <Form onSubmit={submitHandler}>
@@ -135,8 +142,8 @@ function Register() {
               value={emailReg}
               type="email"
               onChange={(e) => setEmailReg(e.target.value)}
+              errorMessage={emailError}
             />
-            <div className="errorMessage">{emailError}</div>
           </Col>
         </Row>
         <Row>
@@ -146,8 +153,8 @@ function Register() {
               name="firstName"
               value={firstNameReg}
               onChange={e => setFirstNameReg(e.target.value)}
+              errorMessage={firstNameError}
             />
-            <div className="errorMessage">{firstNameError}</div>
           </Col>
           <Col md>
             <InputWithLabels
@@ -155,8 +162,8 @@ function Register() {
               name="lastName"
               value={lastNameReg}
               onChange={(e) => setLastNameReg(e.target.value)}
+              errorMessage={lastNameError}
             />
-            <div className="errorMessage">{lastNameError}</div>
           </Col>
         </Row>
         <Row>
@@ -167,8 +174,8 @@ function Register() {
               value={passwordReg}
               type={showPassword ? "text" : "password"}
               onChange={(e) => setPasswordReg(e.target.value)}
+              errorMessage={passwordError}
             />
-            <div className="errorMessage">{passwordError}</div>
           </Col>
           <Col md>
             <InputWithLabels
@@ -177,10 +184,9 @@ function Register() {
               value={repeatPasswordReg}
               type={showPassword ? "text" : "password"}
               onChange={(e) => setRepeatPasswordReg(e.target.value)}
+              errorMessage={repeatPasswordError}
             />
-            <div className="errorMessage">{repeatPasswordError}</div>
           </Col>
-          {/* <p className="passwordRules">Lösenordet måste ha minst 8 tecken, en stor bokstav & en siffra</p> */}
         </Row>
         <Row>
           <Col>

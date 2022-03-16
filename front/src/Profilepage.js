@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Redirect, useHistory } from 'react-router-dom';
 
-function ProfilePage(props) {
-
+function ProfilePage() {
   const redirectToLogin = useHistory();
-
-  // const [welcomeMessage, setWelcomeMessage] = useState('');
   const location = useLocation();
 
 
   function logoutHandler() {
-    redirectToLogin.push(
-      {
-        pathname: '/login',
-        state: { logout: true }
-      });
+    redirectToLogin.push({
+      pathname: '/login',
+      state: { logout: true }
+    });
   }
 
   if (location.state && location.state.loggedIn) {

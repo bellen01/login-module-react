@@ -1,5 +1,4 @@
 const express = require('express');
-const morgan = require('morgan');
 const mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 const cors = require('cors');
@@ -7,11 +6,6 @@ const crypto = require('crypto');
 
 const app = express();
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use(morgan('dev'));
 
 const userSchema = mongoose.Schema({
     firstName: {
@@ -41,15 +35,19 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch((err) => console.log(err));
 
 
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post("/reg", async (req, res, next) => {
-    let emailLowerCase = req.body.email.toLowerCase();
-    let isEmailAlreadyRegistered = await User.exists({ email: emailLowerCase });
+
+app.post("/reg", async (req, res) => {
+    const emailLowerCase = req.body.email.toLowerCase();
+    const isEmailAlreadyRegistered = await User.exists({ email: emailLowerCase });
     if (isEmailAlreadyRegistered) {
         console.log("Email is already registered")
         return res.status(406).json({})
     } else {
-        let encryptedPwd = crypto.createHash('md5').update(req.body.password).digest("hex");
+        const encryptedPwd = crypto.createHash('md5').update(req.body.password).digest("hex");
         const userData = new User({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -67,18 +65,18 @@ app.post("/reg", async (req, res, next) => {
 });
 
 async function doesUserExist(loginData) {
-    let encryptLoginPwd = crypto.createHash('md5').update(loginData.password).digest("hex");
-    let doesEmailAndPwdMatch = await User.findOne({ email: loginData.email.toLowerCase(), password: encryptLoginPwd })
-    return doesEmailAndPwdMatch;
+    const encryptLoginPwd = crypto.createHash('md5').update(loginData.password).digest("hex");
+    const findUser = await User.findOne({ email: loginData.email.toLowerCase(), password: encryptLoginPwd })
+    return findUser;
 }
 
-app.post("/login", async (req, res, next) => {
+app.post("/login", async (req, res) => {
     const userData = await doesUserExist(req.body);
     if (userData) {
-        console.log('ya');
+        console.log(`Användare inloggad: ${userData.email}`);
         return res.status(200).json({ firstName: userData.firstName })
     } else {
-        console.log('no');
+        console.log('Felaktig inloggning');
         return res.status(401).json({})
     }
 })

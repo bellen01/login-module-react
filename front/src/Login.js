@@ -5,27 +5,26 @@ import { Form, Row, Col } from 'react-bootstrap';
 import InputWithLabels from "./InputWithLabels";
 
 
-let errorMessageEmptyEmail = "Du måste fylla i email";
-let errorMessageEmptyPassword = "Du måste fylla i lösenord";
+const errorMessageEmptyEmail = "! Du måste fylla i email";
+const errorMessageEmptyPassword = "! Du måste fylla i lösenord";
+
 
 function Login() {
   const location = useLocation();
+  const redirectToProfilePage = useHistory();
 
   const [regSuccessMessage, setRegSuccessMessage] = useState('');
-
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const [loginSuccessOrFailureMessage, setLoginSuccessOrFailureMessage] = useState("");
 
-  const redirectToProfilePage = useHistory();
 
   useEffect(() => {
     if (location.state && location.state.success) {
-      setRegSuccessMessage('Du är registrerad, logga in nedan');
+      setRegSuccessMessage('Yay, du är registrerad! Logga in nedan');
     } else if (location.state && location.state.logout) {
       setRegSuccessMessage('Du är utloggad');
     }
@@ -36,15 +35,17 @@ function Login() {
     let valid = true;
     setEmailError("");
     setPasswordError("");
+
     if (loginEmail == "") {
       setEmailError(errorMessageEmptyEmail);
       valid = false;
     }
+
     if (loginPassword == "") {
       setPasswordError(errorMessageEmptyPassword);
       valid = false;
     }
-    console.log(valid);
+
     return valid;
   }
 
@@ -66,45 +67,43 @@ function Login() {
           throw new Error("Något gick fel, försök igen senare");
         }
       }
-      setLoginSuccessOrFailureMessage("Login lyckades!")
+
       const data = await response.json();
       const loggedInUserName = data.firstName;
-      console.log(loggedInUserName);
 
-      redirectToProfilePage.push(
-        {
-          pathname: '/profilepage',
-          state: {
-            loggedIn: true,
-            loggedInUserName
-          }
-        });
+      redirectToProfilePage.push({
+        pathname: '/profilepage',
+        state: {
+          loggedIn: true,
+          loggedInUserName
+        }
+      });
 
     } catch (error) {
-      console.log(error);
+      console.log("Login failed", error);
       setLoginSuccessOrFailureMessage(error.message);
     }
   }
 
   function loginSubmitHandler(event) {
     event.preventDefault();
+
     const email = loginEmail.trim();
-    let validInput = validate();
+    const validInput = validate();
+
     if (validInput === true) {
       const loginData = {
         email: email,
         password: loginPassword
       }
       checkIfUserExist(loginData);
-      // setLoginEmail("");
-      // setLoginPassword("");
     }
   }
 
   return (
     <Form onSubmit={loginSubmitHandler}>
       <Form.Group className="mb-3">
-        <div>{regSuccessMessage}</div>
+        <div className="successMessage">{regSuccessMessage}</div>
         <h1>Logga in här:</h1>
         <Row>
           <Col md>
@@ -114,8 +113,8 @@ function Login() {
               value={loginEmail}
               name="email"
               onChange={(e) => setLoginEmail(e.target.value)}
+              errorMessage={emailError}
             />
-            <div className="errorMessage">{emailError}</div>
           </Col>
           <Col md>
             <InputWithLabels
@@ -124,8 +123,8 @@ function Login() {
               value={loginPassword}
               name="password"
               onChange={(e) => setLoginPassword(e.target.value)}
+              errorMessage={passwordError}
             />
-            <div className="errorMessage">{passwordError}</div>
           </Col>
         </Row>
         <button

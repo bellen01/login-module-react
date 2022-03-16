@@ -1,7 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
-import './InputWithLabels.css';
+
 
 function InputWithLabels(props) {
   let type = "text";
@@ -18,7 +18,7 @@ function InputWithLabels(props) {
         name="{props.name}"
         onChange={props.onChange}
       />
-      <div>{props.errorMessage}</div>
+      <div className="errorMessage">{props.errorMessage}</div>
     </div>
   )
 }
