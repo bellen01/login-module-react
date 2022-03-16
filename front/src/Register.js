@@ -12,9 +12,8 @@ let errorMessageEmail = "! Email måste innehålla @ och punkt";
 let errorMessagePassword = "! Lösenordet måste ha minst 8 tecken, en stor bokstav & en siffra";
 let errorMessageRepeatPassword = "! Lösenorden stämmer inte överens";
 
+const validEmail = new RegExp('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[.][a-zA-Z0-9]+$');
 const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
-const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
-
 
 function Register() {
   const [firstNameReg, setFirstNameReg] = useState("");
@@ -122,10 +121,6 @@ function Register() {
         password: passwordReg
       }
       sendInputToBackend(inputData);
-      setFirstNameReg("");
-      setLastNameReg("");
-      setEmailReg("");
-      setPasswordReg("");
     }
   }
 
