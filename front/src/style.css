@@ -36,7 +36,22 @@ h1 {
   color: rgb(97, 140, 155);
 }
 
+.checkbox-container {
+  display: flex;
+}
+
+
+input[type="checkbox"] {
+  accent-color: lightblue;
+  width: 17px;
+  height: 17px;
+}
+
+
 .checkbox {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
   font-family: 'Open Sans', sans-serif;
   color: white;
   font-weight: 400;
@@ -44,7 +59,7 @@ h1 {
 }
 
 .btn {
-  background-color:rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   margin: 20px 0 20px 0;
   padding-left: 30px;
   padding-right: 30px;
@@ -76,7 +91,7 @@ h1 {
 }
 
 .form-input {
-  background-color: rgba(255,255,255,0.4);
+  background-color: rgba(255, 255, 255, 0.4);
   border: none;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -85,17 +100,18 @@ h1 {
 
 .form-input:focus {
   box-shadow: none;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .successMessage {
   font-family: 'Open Sans', sans-serif;
   padding-bottom: 10px;
-  color:rgb(72, 119, 136);
+  color: rgb(72, 119, 136);
   font-size: 20px;
 }
 
 @media screen and (max-width: 800px) {
+
   .errorMessage,
   .errorMessage-2 {
     color: white;

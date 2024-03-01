@@ -6,11 +6,11 @@ import { Form, Row, Col } from 'react-bootstrap'
 import './style.css';
 
 
-let errorMessageFirstName = "! Du måste fylla i förnamn"
-let errorMessageLastName = "! Du måste fylla i efternamn";
-let errorMessageEmail = "! Email måste innehålla @ och punkt";
-let errorMessagePassword = "! Lösenordet måste ha minst 8 tecken, en stor bokstav & en siffra";
-let errorMessageRepeatPassword = "! Lösenorden stämmer inte överens";
+let errorMessageFirstName = "Du måste fylla i förnamn"
+let errorMessageLastName = "Du måste fylla i efternamn";
+let errorMessageEmail = "Email måste innehålla @ och punkt";
+let errorMessagePassword = "Lösenordet måste ha minst 8 tecken, en stor bokstav & en siffra";
+let errorMessageRepeatPassword = "Lösenorden stämmer inte överens";
 
 const validEmail = new RegExp('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[.][a-zA-Z0-9]+$');
 const validPassword = new RegExp('^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
@@ -185,12 +185,11 @@ function Register() {
         </Row>
         <Row>
           <Col>
-            <Form.Check className="checkbox"
-              type="checkbox"
-              id="show-password"
-              label="Visa lösenord"
-              onChange={toggleShowPassword}
-            />
+            <div className="checkbox-container">
+              <label htmlFor="show-password" className="checkbox" >
+                <input type="checkbox" id="show-password" onChange={toggleShowPassword} />
+                Visa lösenord</label>
+            </div>
           </Col>
         </Row>
         <button

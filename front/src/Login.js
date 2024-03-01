@@ -5,8 +5,8 @@ import { Form, Row, Col } from 'react-bootstrap';
 import InputWithLabels from "./InputWithLabels";
 
 
-const errorMessageEmptyEmail = "! Du måste fylla i email";
-const errorMessageEmptyPassword = "! Du måste fylla i lösenord";
+const errorMessageEmptyEmail = "Du måste fylla i email";
+const errorMessageEmptyPassword = "Du måste fylla i lösenord";
 
 
 function Login() {
