@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 const cors = require('cors');
 const crypto = require('crypto');
+require('dotenv').config();
 
 const app = express();
 
@@ -29,7 +30,7 @@ const userSchema = mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 
-const dbURI = 'mongodb+srv://bellen01:Cqn6KbLUy5FBrWh@cluster0.wtkif.mongodb.net/User?retryWrites=true&w=majority';
+const dbURI = process.env.DB_URI;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => console.log('Connected to DB'))
     .catch((err) => console.log(err));
